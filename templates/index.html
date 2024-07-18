@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Video</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h1>Upload Video</h1>
+    <form id="upload-form" method="post" action="/upload" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input type="submit" value="Upload">
+    </form>
+    <div id="progress" style="display: none;">
+        <h2>Processing Video...</h2>
+    </div>
+    <div id="video-container" style="display: none;">
+        <h2>Processed Video</h2>
+        <video width="640" height="480" controls id="processed-video">
+            <source id="processed-video-source" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <br>
+        <a href="/">Upload Another Video</a>
+    </div>
+    <script>
+        $(document).ready(function() {
+            $('#upload-form').on('submit', function(event) {
+                event.preventDefault();
+                var formData = new FormData(this);
+                $('#progress').show();
+                $.ajax({
+                    url: '/upload',
+                    type: 'POST',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        $('#progress').hide();
+                        $('#video-container').show();
+                        $('#processed-video-source').attr('src', data.video_url);
+                        $('#processed-video')[0].load();
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
