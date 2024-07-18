@@ -22,7 +22,7 @@ This project is a web application built using Flask that allows users to upload 
 
     ```sh
     git clone https://github.com/maityanubhab/Real-Time-Video-Frame-Extraction-and-Timestamping-with-Flask.git
-    cd your-repo-name
+    cd Real-Time-Video-Frame-Extraction-and-Timestamping-with-Flask
     ```
 
 2. **Create and activate a virtual environment**:
